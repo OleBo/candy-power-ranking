@@ -36,10 +36,10 @@ In this section you will start your [Google Cloud Shell][6] and clone the
 
   ```shell
   $ git clone https://github.com/OleBo/candy-power-ranking.git
-  Cloning into 'training-data-analyst'...
+  Cloning into 'candy-power-ranking'...
   ...
 
-  $ cd candy-power-ranking/blogs/babyweight/application
+  $ cd candy-power-ranking/application
   ```
 
 [6]: https://cloud.google.com/cloud-shell/docs/
@@ -47,7 +47,7 @@ In this section you will start your [Google Cloud Shell][6] and clone the
 
 ## Customize the model name
 
-If you have deployed the model with the name different from 'babyweight',
+If you have deployed the model with the name different from 'candy',
  open `app.yaml` with a text editor and replace the model name accordingly.
 
 ```yaml
@@ -61,6 +61,7 @@ env_variables:
 $ pip install -r requirements.txt -t lib
 $ gcloud app create
 $ gcloud app deploy
+$ gcloud app browse
 ```
 
 By executing these commands on the Cloud Shell, the project id is automatically
