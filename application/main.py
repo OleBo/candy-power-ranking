@@ -60,7 +60,7 @@ def input_form():
 def predict():
 
   def categorical2int(val):
-      options = {'true': 1, 'talse': 0}
+      options = {'true': 1, 'false': 0}
       return options[val]
       
   data = json.loads(request.data.decode())
