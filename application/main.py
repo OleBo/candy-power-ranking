@@ -32,7 +32,8 @@ from google.appengine.api import app_identity
 credentials = GoogleCredentials.get_application_default()
 api = discovery.build('ml', 'v1', credentials=credentials)
 project = app_identity.get_application_id()
-model_name = os.getenv('MODEL_NAME', 'babyweight')
+model_name = os.getenv('MODEL_NAME', 'candy')
+version_name = os.getenv('VERSION_NAME', 'ml_on_gcp')
 
 
 app = Flask(__name__)
@@ -40,7 +41,7 @@ app = Flask(__name__)
 
 def get_prediction(features):
   input_data = {'instances': [features]}
-  parent = 'projects/%s/models/%s' % (project, model_name)
+  parent = 'projects/%s/models/%s/versions/%s' % (project, model_name, version_name)
   prediction = api.projects().predict(body=input_data, name=parent).execute()
   return prediction['predictions'][0]['predictions'][0]
 
@@ -57,28 +58,27 @@ def input_form():
 
 @app.route('/api/predict', methods=['POST'])
 def predict():
-  def gender2str(val):
-    genders = {'unknown': 'Unknown', 'male': 'True', 'female': 'False'}
-    return genders[val]
 
-  def plurality2str(val):
-    pluralities = {'1': 'Single(1)', '2': 'Twins(2)', '3': 'Triplets(3)'}
-    if features['is_male'] == 'Unknown' and int(val) > 1:
-      return 'Multiple(2+)'
-    return pluralities[val]
-
+  def categorical2int(val):
+      options = {'True': 1, 'False': 0}
+      return options[val]
+      
   data = json.loads(request.data.decode())
-  mandatory_items = ['baby_gender', 'mother_age',
-                     'plurality', 'gestation_weeks']
-  for item in mandatory_items:
-    if item not in data.keys():
-      return jsonify({'result': 'Set all items.'})
+  mandatory_items = ['chocolate', 'fruity', 'peanutyalmondy', 'crispedricewafer',
+                      'hard', 'bar', 'pricepercent']
+  # for item in mandatory_items:
+  #   if item not in data.keys():
+  #     return jsonify({'result': 'Set all items.'})
 
   features = {}
-  features['is_male'] = gender2str(data['baby_gender'])
-  features['mother_age'] = float(data['mother_age'])
-  features['plurality'] = plurality2str(data['plurality'])
-  features['gestation_weeks'] = float(data['gestation_weeks'])
+  features['hashname'] = 'nokey'
+  features['chocolate'] = categorical2int(data['chocolate'])
+  features['fruity'] = categorical2int(data['fruity'])
+  features['peanutyalmondy'] = categorical2int(data['peanutyalmondy'])
+  features['crispedricewafer'] = categorical2int(data['crispedricewafer'])
+  features['hard'] = categorical2int(data['hard'])
+  features['bar'] = categorical2int(data['bar'])
+  features['pricepercent'] = float(data['pricepercent'])
 
   prediction = get_prediction(features)
   return jsonify({'result': '{:.2f} lbs.'.format(prediction)})

@@ -10,4 +10,4 @@ handlers:
   login: required
 
 env_variables:
-  MODEL_NAME: 'babyweight'
+  MODEL_NAME: 'candy'

@@ -1,6 +1,4 @@
-# Baby Weight Prediction Example
-
-Disclaimer: This is not an official Google product.
+# Candy Prediction Example
 
 This is an example application demonstrating how the deployed model
  can be used to make online predictions from web applications.
@@ -37,11 +35,11 @@ In this section you will start your [Google Cloud Shell][6] and clone the
 3. Clone the lab repository in your cloud shell, then `cd` into that dir:
 
   ```shell
-  $ git clone https://github.com/GoogleCloudPlatform/training-data-analyst
+  $ git clone https://github.com/OleBo/candy-power-ranking.git
   Cloning into 'training-data-analyst'...
   ...
 
-  $ cd training-data-analyst/blogs/babyweight/application
+  $ cd candy-power-ranking/blogs/babyweight/application
   ```
 
 [6]: https://cloud.google.com/cloud-shell/docs/
@@ -54,7 +52,7 @@ If you have deployed the model with the name different from 'babyweight',
 
 ```yaml
 env_variables:
-  MODEL_NAME: 'babyweight'
+  MODEL_NAME: 'candy'
 ```
 
 ## Deploy the application
