@@ -81,4 +81,4 @@ def predict():
   features['pricepercent'] = float(data['pricepercent'])
 
   prediction = get_prediction(features)
-  return jsonify({'result': '{:.2f} lbs.'.format(prediction)})
+  return jsonify({'result': '{:.2f} %'.format(prediction)})
